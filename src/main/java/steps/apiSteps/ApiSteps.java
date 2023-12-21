@@ -20,6 +20,7 @@ public class ApiSteps {
     @Step ("Получения токена авторизации")
     public TokenResponse postLogin(LoginRequest LR){
         return given()
+                .log().all()
                 .baseUri("http://localhost:8080")
                 .body(LR)
                 .contentType(ContentType.JSON)
@@ -32,6 +33,7 @@ public class ApiSteps {
     @Step ("Получение свободного номера")
     public PhonesResponse getEmptyPhones(String token){
         return given()
+                .log().all()
                 .header("authToken", token)
                 .baseUri("http://localhost:8080")
                 .get("/simcards/getEmptyPhone")
@@ -43,6 +45,7 @@ public class ApiSteps {
     @Step("Получение id нового пользователя")
     public IdResponse postCustomer(CustomerRequest CR,String token){
         return given()
+                .log().all()
                 .header("authToken", token)
                 .body(CR)
                 .contentType(ContentType.JSON)
@@ -56,6 +59,7 @@ public class ApiSteps {
     @Step("Получение кастомера по Id")
     public CustomerResponse getCustomer(String token, String id){
         return given()
+                .log().all()
                 .header("authToken", token)
                 .baseUri("http://localhost:8080")
                 .get("/customer/getCustomerById?customerId="+id)
