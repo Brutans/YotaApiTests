@@ -9,19 +9,15 @@ import org.testng.Assert;
 
 import static io.restassured.RestAssured.given;
 
-public class AdminSteps {
+public class ApiSteps {
 
 
     @Step("Проверка одинаковых результатов")
     public void checkEqualsResponse(Object exceptedResult, Object actualResult){
         Assert.assertEquals(exceptedResult, actualResult);
     }
-    //Нужна ли проверка не одинаковых ?
-    @Step("Проверка ? результатов")
-    public void checkResponse(Object exceptedResult, Object actualResult){
-        Assert.assertNotEquals(exceptedResult, actualResult);
-    }
-    @Step ("Получения токена авторизации Admin")
+
+    @Step ("Получения токена авторизации")
     public TokenResponse postLogin(LoginRequest LR){
         return given()
                 .baseUri("http://localhost:8080")
@@ -33,7 +29,7 @@ public class AdminSteps {
                 .extract()
                 .response().as(TokenResponse.class);
     }
-    @Step ("Получение свободного номера Admin")
+    @Step ("Получение свободного номера")
     public PhonesResponse getEmptyPhones(String token){
         return given()
                 .header("authToken", token)
@@ -83,7 +79,7 @@ public class AdminSteps {
 
     }
     @Step("Смена статуса")
-    public void changeStatus(String token, String id, StatusRequest status){
+    public void changeStatus(String token, String id, StatusRequest status, Integer statusCode){
         given()
                 .header("authToken", token)
                 .log().all()
@@ -92,7 +88,7 @@ public class AdminSteps {
                 .baseUri("http://localhost:8080")
                 .post("/customer/"+id+"/changeCustomerStatus")
                 .then()
-                .statusCode(200)
+                .statusCode(statusCode)
                 .extract().response();
     }
 

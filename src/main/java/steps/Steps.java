@@ -1,11 +1,11 @@
 package steps;
 
-import steps.apiSteps.AdminSteps;
-import steps.apiSteps.UserSteps;
+
+import steps.apiSteps.ApiSteps;
 
 
 public interface Steps {
-    UserSteps USER_STEPS = new UserSteps();
+    ApiSteps USER_STEPS = new ApiSteps();
 
-    AdminSteps ADMIN_STEPS = new AdminSteps();
+    ApiSteps ADMIN_STEPS = new ApiSteps();
 }
