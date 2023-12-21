@@ -52,7 +52,7 @@ public class ExampleAdmin extends BaseTest {
         IdResponse id = ADMIN_STEPS.postCustomer(cReq,token.getToken());
 
         Allure.step("Step 4: Ожидание активации кастомера");
-        Thread.sleep(200); // Шаг 4
+        Thread.sleep(120000); // Шаг 4
 
         Allure.step("Step 5: Проверка корректности активации кастомера");
         CustomerResponse cResp = ADMIN_STEPS.getCustomer(token.getToken(),id.getId()); // Шаг 5
@@ -60,7 +60,7 @@ public class ExampleAdmin extends BaseTest {
         String json = cResp.getMyreturn().getPd().getPassportNumber();
         fullPd fullPd = new ObjectMapper().readValue(json,fullPd.class);
 
-        ADMIN_STEPS.checkEqualsResponse("NEW",cResp.getMyreturn().getStatus());
+        ADMIN_STEPS.checkEqualsResponse("ACTIVE",cResp.getMyreturn().getStatus());
         ADMIN_STEPS.checkEqualsResponse(firstPhoneNumber,cResp.getMyreturn().getPhone());
         ADMIN_STEPS.checkEqualsResponse(cReq.getName(),cResp.getMyreturn().getName());
         ADMIN_STEPS.checkEqualsResponse(cReq.getAdditionalParameters(),cResp.getMyreturn().getAdditionalParameters());

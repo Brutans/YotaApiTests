@@ -54,14 +54,14 @@ public class ExampleUser extends BaseTest {
         IdResponse id = USER_STEPS.postCustomer(cReq,token.getToken()); // Шаг 3
 
         Allure.step("Step 4: Ожидание активации кастомера");
-        Thread.sleep(200); // Шаг 4
+        Thread.sleep(120000); // Шаг 4
 
         Allure.step("Step 5: Проверка корректности активации кастомера");
         CustomerResponse cResp = USER_STEPS.getCustomer(token.getToken(),id.getId()); // Шаг 5
         System.out.println(cResp+"\n");
         String json = cResp.getMyreturn().getPd().getPassportNumber();
         fullPd fullPd = new ObjectMapper().readValue(json,fullPd.class);
-        USER_STEPS.checkEqualsResponse("NEW",cResp.getMyreturn().getStatus());
+        USER_STEPS.checkEqualsResponse("ACTIVE",cResp.getMyreturn().getStatus());
         USER_STEPS.checkEqualsResponse(firstPhoneNumber,cResp.getMyreturn().getPhone());
         USER_STEPS.checkEqualsResponse(cReq.getName(),cResp.getMyreturn().getName());
         USER_STEPS.checkEqualsResponse(cReq.getAdditionalParameters(),cResp.getMyreturn().getAdditionalParameters());
@@ -79,6 +79,6 @@ public class ExampleUser extends BaseTest {
         USER_STEPS.changeStatus(token.getToken(),id.getId(),statusRequest,401); // Шаг 7
         CustomerResponse changedCResp = USER_STEPS.getCustomer(token.getToken(),id.getId());
         Allure.step("Step 8: Пользователь проверяет, что изменение статуса прошло Неуспешно");
-        USER_STEPS.checkEqualsResponse("NEW",changedCResp.getMyreturn().getStatus()); // Шаг 8
+        USER_STEPS.checkEqualsResponse("ACTIVE",changedCResp.getMyreturn().getStatus()); // Шаг 8
     }
 }

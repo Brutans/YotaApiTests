@@ -16,6 +16,10 @@
         <rest-assured.version>4.5.1</rest-assured.version>
         <testng.version>6.9.9</testng.version>
         <maven.compiler.target>8</maven.compiler.target>
+        <defaultSuiteFiles>
+            ./src/test/testng.xml
+        </defaultSuiteFiles>
+        <suiteFile>${defaultSuiteFiles}</suiteFile>
     </properties>
 
     <dependencies>
@@ -92,11 +96,17 @@
                         <allure.results.directory>target/allure-results</allure.results.directory>
                     </systemPropertyVariables>
                     <suiteXmlFiles>
-                        <suiteXmlFile>
-                            src\test\testng.xml
-                        </suiteXmlFile>
+                        <suiteXmlFile>src/test/testng.xml</suiteXmlFile>
                     </suiteXmlFiles>
                 </configuration>
+                <executions>
+                    <execution>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>test</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>io.qameta.allure</groupId>
