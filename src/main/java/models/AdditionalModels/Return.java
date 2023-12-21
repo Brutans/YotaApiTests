@@ -12,6 +12,6 @@ public class Return {
     private String status;
     private Long phone;
     private AdditionalParameters additionalParameters;
-    private String pd;
+    private pd pd;
 }
 
